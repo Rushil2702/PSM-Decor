@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Projects | PSM Decor{% endblock %}
+{% block page_css %}<link rel="stylesheet" href="{{ url_for('static', filename='css/projects.css') }}">{% endblock %}
+{% block content %}
+<section class="projects-hero">
+    <div class="section-wrap projects-hero-inner"><p class="eyebrow"><span></span> A FEEL FOR THE POSSIBILITIES</p><h1>Spaces with<br><em>a point of view.</em></h1><p>Explore the PSM Decor portfolio. Project imagery and descriptions are being prepared for publication.</p><div class="projects-count"><span>{{ projects|length }}</span> PROJECTS <i></i> PORTFOLIO</div></div>
+</section>
+<section class="projects-list section-wrap">
+    <div class="projects-list-heading"><div class="section-label"><span>01</span> PROJECT PORTFOLIO</div><p>Project images and descriptions are placeholders.</p></div>
+    <div class="project-gallery">
+        {% from "macros/project_media.html" import project_card_image %}
+        {% for project in projects %}
+        <a class="gallery-card gallery-card-{{ loop.index }}" href="{{ url_for('project_details', project_id=project.slug) }}" aria-label="View {{ project.title }} project details">
+            <div class="gallery-image">{{ project_card_image(project) }}<span class="gallery-arrow" aria-hidden="true">↗</span></div>
+            <div class="gallery-meta"><div class="gallery-category">{{ project.category }} <span>·</span> PROJECT</div><h2>{{ project.title }}</h2><p>{% if project.location %}{{ project.location }}{% else %}Location not provided{% endif %}</p></div>
+        </a>
+        {% else %}
+        <p class="empty-projects">Projects will appear here once portfolio data is added.</p>
+        {% endfor %}
+    </div>
+</section>
+<section class="projects-end"><div class="section-wrap projects-end-inner"><p>Have a space in mind?</p><a href="{{ url_for('home') }}#contact">Start a conversation <span aria-hidden="true">↗</span></a></div></section>
+{% endblock %}

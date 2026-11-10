@@ -1,0 +1,31 @@
+{% macro project_card_image(project, loading_mode='lazy') -%}
+    {% if project.cover_image %}
+        <img src="{{ url_for('project_image', project_slug=project.slug, filename=project.cover_image) }}" alt="{{ project.title }} project image" loading="{{ loading_mode }}">
+        <span class="image-tag">PROJECT IMAGE</span>
+    {% else %}
+        <div class="project-placeholder-art" role="img" aria-label="Project image not available for {{ project.title }}"><span>PSM<br><small>PROJECT IMAGE NOT AVAILABLE</small></span></div>
+        <span class="image-tag">IMAGE NOT AVAILABLE</span>
+    {% endif %}
+{%- endmacro %}
+
+{% macro project_detail_cover(project) -%}
+    {% if project.cover_image %}
+        <img src="{{ url_for('project_image', project_slug=project.slug, filename=project.cover_image) }}" alt="{{ project.title }} project image">
+        <span class="placeholder-stamp">PROJECT IMAGE</span>
+    {% else %}
+        <div class="detail-placeholder-art" role="img" aria-label="Project image not available for {{ project.title }}"><span>PSM DECOR<small>PROJECT IMAGE NOT AVAILABLE</small></span></div>
+        <span class="placeholder-stamp">IMAGE NOT AVAILABLE</span>
+    {% endif %}
+{%- endmacro %}
+
+{% macro project_gallery(project) -%}
+    {% if project.gallery_images %}
+        <div class="detail-gallery-grid">
+            {% for image_name in project.gallery_images %}
+                <figure><img src="{{ url_for('project_image', project_slug=project.slug, filename=image_name) }}" alt="Additional {{ project.title }} project image" loading="lazy"><figcaption>PROJECT IMAGE</figcaption></figure>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="gallery-empty"><span>PSM</span><p>No additional project images are available in this folder.</p></div>
+    {% endif %}
+{%- endmacro %}

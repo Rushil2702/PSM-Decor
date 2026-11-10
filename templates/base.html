@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f7f3eb">
+    <meta name="description" content="PSM Decor — thoughtful interiors shaped around the way you live.">
+    <title>{% block title %}PSM Decor | Thoughtful interiors{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    {% block page_css %}{% endblock %}
+</head>
+<body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header">
+        <div class="header-inner">
+            <a href="{{ url_for('home') }}" class="brand" aria-label="PSM Decor home">
+                <span class="brand-mark">PSM</span><span class="brand-name">DECOR</span>
+            </a>
+            <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation" aria-label="Open navigation">
+                <span></span><span></span>
+            </button>
+            <nav class="nav-links" id="primary-navigation" aria-label="Main navigation">
+                <a href="{{ url_for('home') }}" {% if request.endpoint == 'home' %}aria-current="page"{% endif %}>Home</a>
+                <a href="{{ url_for('services') }}" {% if request.endpoint == 'services' %}aria-current="page"{% endif %}>Services</a>
+                <a href="{{ url_for('projects_page') }}" {% if request.endpoint in ['projects_page', 'project_details'] %}aria-current="page"{% endif %}>Projects</a>
+                <a class="nav-contact" href="{{ url_for('home') }}#contact">Let’s talk <span aria-hidden="true">↗</span></a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">{% block content %}{% endblock %}</main>
+
+    <footer class="site-footer">
+        <div class="footer-main">
+            <a href="{{ url_for('home') }}" class="brand brand-footer" aria-label="PSM Decor home"><span class="brand-mark">PSM</span><span class="brand-name">DECOR</span></a>
+            <p>Thoughtful interiors, made for living.</p>
+            <a href="#contact">Start a conversation <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="footer-bottom"><span>© 2026 PSM Decor</span><span>Interiors with intention</span></div>
+    </footer>
+    <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+    {% block page_js %}{% endblock %}
+</body>
+</html>

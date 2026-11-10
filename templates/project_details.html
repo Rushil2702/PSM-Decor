@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}{{ project.title }} | PSM Decor{% endblock %}
+{% block page_css %}<link rel="stylesheet" href="{{ url_for('static', filename='css/project_details.css') }}">{% endblock %}
+{% block content %}
+{% from "macros/project_media.html" import project_detail_cover, project_gallery %}
+<section class="detail-hero">
+    <div class="detail-breadcrumb"><a href="{{ url_for('projects_page') }}">Projects</a><span>/</span><span>{{ project.category }}</span></div>
+    <div class="detail-title-row"><div><p class="eyebrow"><span></span> {{ project.category|upper }}</p><h1>{{ project.title }}</h1></div><p class="detail-location">{% if project.location %}{{ project.location }}{% else %}<small>Location not provided</small>{% endif %}</p></div>
+    <div class="detail-main-image">{{ project_detail_cover(project) }}</div>
+</section>
+<section class="detail-story section-wrap">
+    <div class="section-label"><span>01</span> PROJECT DETAILS</div>
+    <div class="detail-story-copy"><div><h2>{{ project.title }}</h2><p class="sample-description">{{ project.description }}</p>{% if project.description_is_placeholder %}<span class="sample-disclaimer">PLACEHOLDER DESCRIPTION — REPLACE WITH APPROVED PROJECT DETAILS</span>{% endif %}</div><dl class="project-facts"><div><dt>PROJECT</dt><dd>{{ project.title }}</dd></div><div><dt>CATEGORY</dt><dd>{{ project.category }}</dd></div><div><dt>LOCATION</dt><dd>{{ project.location or "Location not provided" }}</dd></div></dl></div>
+</section>
+<section class="detail-gallery section-wrap">
+    <div class="gallery-heading"><div class="section-label"><span>02</span> PROJECT GALLERY</div><p>{% if project.gallery_images %}{{ project.gallery_images|length }} additional image{% if project.gallery_images|length != 1 %}s{% endif %}{% else %}No additional project images available.{% endif %}</p></div>
+    {{ project_gallery(project) }}
+</section>
+<section class="detail-end"><div class="section-wrap detail-end-inner"><a class="text-link" href="{{ url_for('projects_page') }}"><span aria-hidden="true">←</span> Back to all projects</a><div><p>Have a space in mind?</p><a href="{{ url_for('home') }}#contact">Talk with PSM Decor <span aria-hidden="true">↗</span></a></div></div></section>
+{% endblock %}
