@@ -140,7 +140,7 @@ def project_image(project_slug, filename):
         allowed_images.add(project["cover_image"])
     if filename not in allowed_images:
         abort(404)
-    return send_from_directory(project["image_dir"]), filename
+    return send_from_directory(project["image_dir"], filename)
 
 if __name__ == "__main__":
     app.run(debug=True)
